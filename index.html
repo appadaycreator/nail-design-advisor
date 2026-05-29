@@ -69,6 +69,10 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
             .result-value { font-size: 28px; }
         }
         /* ── サービス固有CSS ── */
+        .quiz-opt { width:100%; padding:12px 14px; margin-bottom:8px; border:2px solid #e5e7eb; border-radius:10px; font-size:14px; cursor:pointer; background:#fff; text-align:left; transition:border-color .15s, background .15s; }
+        .quiz-opt:hover { border-color:#7c3aed; background:#f5f3ff; }
+        .quiz-opt:active { transform:scale(0.99); background:#ede9fe; }
+        .quiz-opt:focus-visible { outline:3px solid #7c3aed; outline-offset:2px; }
 
     
 @media print{
@@ -90,7 +94,7 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
     <header class="site-header" role="banner">
         <div class="emoji" aria-hidden="true">💅</div>
         <h1>ネイルデザイン選び診断</h1>
-        <p>肌色・好みのスタイル・シーン（オフィス・デート・パーティー）から最適なネイル...</p>
+        <p>肌色・好みのスタイル・シーン（オフィス・デート・パーティー）から<br>最適なネイルデザインを診断します</p>
     </header>
 
     <main id="main-content" class="container" role="main" aria-label="ネイルデザイン選び診断のメインコンテンツ">
@@ -99,8 +103,15 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
 
         <div class="card" id="quiz-start">
           <h2 style="font-size:18px;font-weight:700;margin-bottom:12px;">💅 ネイルデザイン選び診断</h2>
-          <p style="color:#666;font-size:14px;margin-bottom:8px;">肌色・好みのスタイル・シーン（オフィス・デート・パーティー）から最適なネイル...</p>
-          <ul style="font-size:13px;color:#94a3b8;margin:0 0 16px 16px;"><li>質問数：5問</li><li>所要時間：約1分</li></ul>
+          <p style="color:#666;font-size:14px;margin-bottom:12px;">あなたの肌色・好みのスタイル・シーン・季節感から、最適なネイルデザインを診断します。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+            <span style="background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">💎 肌色診断</span>
+            <span style="background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">👗 スタイル</span>
+            <span style="background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">🎯 シーン別</span>
+            <span style="background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">🌸 季節感</span>
+            <span style="background:#f5f3ff;color:#7c3aed;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">💅 5タイプ診断</span>
+          </div>
+          <ul style="font-size:13px;color:#94a3b8;margin:0 0 16px 16px;"><li>質問数：5問</li><li>所要時間：約1分</li><li>登録不要・完全無料</li></ul>
           <button class="btn" onclick="startQuiz()">診断スタート →</button>
         </div>
         <div id="quiz-area" style="display:none;">
@@ -115,9 +126,12 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         </div>
         <div class="result" id="result">
           <div class="card">
-            <h3 id="r-title" style="font-size:18px;font-weight:700;margin-bottom:8px;color:#7c3aed;"></h3>
+            <h3 id="r-title" style="font-size:18px;font-weight:700;margin-bottom:10px;color:#7c3aed;"></h3>
+            <div id="r-colors" style="display:flex;gap:10px;margin:10px 0 14px;"></div>
+            <p id="r-skin" style="font-size:13px;color:#7c3aed;font-weight:600;margin-bottom:10px;padding:6px 10px;background:#f5f3ff;border-radius:6px;display:none;"></p>
             <p id="r-desc" style="color:#444;font-size:14px;line-height:1.7;"></p>
-            <button class="btn" style="margin-top:16px;" onclick="location.reload()">もう一度診断</button>
+            <div id="r-share" style="display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap;"></div>
+            <button class="btn" style="margin-top:12px;" onclick="startQuiz()">もう一度診断</button>
           </div>
         </div>
 
@@ -188,8 +202,8 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
         </div>
     </main>
 
-    <footer style="text-align:center;padding:20px;color:white;font-size:12px;opacity:0.75;margin-top:8px;">
-        <p><a href="https://appadaycreator.github.io/" style="color:white;">AppADayCreator</a>
+    <footer style="text-align:center;padding:20px;color:white;font-size:12px;background:#374151;margin-top:8px;">
+        <p><a href="https://appadaycreator.com/" style="color:white;">AppADayCreator</a>
         | <a href="privacy-policy.html" style="color:white;">プライバシーポリシー</a>
         | <a href="terms.html" style="color:white;">利用規約</a>
         | <a href="contact.html" style="color:white;">お問い合わせ</a></p>
@@ -206,11 +220,17 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
       { text:'Q5. ネイルの長さ・スタイルの好みは？', opts:['短め・シンプル・実用的に','中程度・バランス良く','長め・存在感を出したい','アート・デコレーション重視'] }
     ];
     const RESULTS = [
-      { title:'💅 オフィスOKフレンチネイル — 清潔感と上品さで好印象', desc:'オフィスや日常使いに最適な「フレンチネイル」がおすすめです。白・ベージュ・ピンクベージュのナチュラルカラーはどんな肌色にも合い、ビジネスシーンでも浮きません。セルフでトライするなら、ネイルテープを使うフレンチラインが簡単。ベースコートを丁寧に塗ることで爪が美しく見えます。ShiroやOPIの「Bubble Bath」などが人気カラーです。' },
-      { title:'🌸 パステル・春色ネイル — 女性らしい可愛さで統一', desc:'ピーチ・ラベンダー・ミントグリーンなどのパステルカラーがぴったりです。ブルーベース肌には青みがかったピンク・ラベンダー、イエローベース肌にはコーラルピンク・ピーチが映えます。単色でも可愛いですが、1本だけアクセントカラーを入れる「ワンポイントネイル」がトレンド。KANAILやネイリスタのポリッシュは発色が良くコスパ◎。' },
-      { title:'🍂 くすみ・アースカラーネイル — 今どきのおしゃれ感', desc:'テラコッタ・カーキ・グレージュ・バーガンディなどのくすみカラーが今のトレンドです。どんなコーデにも合い、大人っぽい印象を演出できます。秋冬はチョコレートブラウン、春夏はモーヴピンクがおすすめ。OPI「Barefoot in Barcelona」やessieの「Merino Cool」などが人気。デパコスでもプチプラでも、くすみカラーは充実しています。' },
-      { title:'✨ 個性派アートネイル — 指先を自分らしくデコレーション', desc:'ホログラム・スタッズ・押し花・マーブルなど、アートネイルで個性を表現しましょう。セルフでもYouTubeにチュートリアルが豊富にあります。ジェルネイルをやるなら、ネイリスタ・ネイルアンドケアのLEDジェルキットが初心者向け。マーブルネイルはビニール袋を使う方法が簡単でバズっています。爪の長さは中〜長めがアートの見栄えが良いです。' },
-      { title:'🤍 ホワイト・シアーネイル — 万能・清潔感の定番', desc:'半透明のシアーピンク・シアーホワイト・ミルクカラーはどんな肌色にも合う最強の万能ネイルです。爪が透けて見えるくらいの薄づきが今季のトレンド「オーロラネイル」「ガラスネイル」にも繋がります。ベースコート代わりにシアーカラーを重ね塗りするだけでも可愛い。BTSのJ-HOPEも愛用するとして話題になったJILBY&CO.の「Glassnails」もおすすめです。' }
+      { title:'💅 オフィスOKフレンチネイル — 清潔感と上品さで好印象', colors:['#FADADD','#F5EAD9','#FFFFFF','#E8D5C4'], desc:'オフィスや日常使いに最適な「フレンチネイル」がおすすめです。白・ベージュ・ピンクベージュのナチュラルカラーはどんな肌色にも合い、ビジネスシーンでも浮きません。セルフでトライするなら、ネイルテープを使うフレンチラインが簡単。ベースコートを丁寧に塗ることで爪が美しく見えます。ShiroやOPIの「Bubble Bath」などが人気カラーです。' },
+      { title:'🌸 パステル・春色ネイル — 女性らしい可愛さで統一', colors:['#FFB7C5','#D4B8E0','#A8E6CF','#FFD1A9'], desc:'ピーチ・ラベンダー・ミントグリーンなどのパステルカラーがぴったりです。ブルーベース肌には青みがかったピンク・ラベンダー、イエローベース肌にはコーラルピンク・ピーチが映えます。単色でも可愛いですが、1本だけアクセントカラーを入れる「ワンポイントネイル」がトレンド。KANAILやネイリスタのポリッシュは発色が良くコスパ◎。' },
+      { title:'🍂 くすみ・アースカラーネイル — 今どきのおしゃれ感', colors:['#C4956A','#8B9A7A','#B0A090','#8B2635'], desc:'テラコッタ・カーキ・グレージュ・バーガンディなどのくすみカラーが今のトレンドです。どんなコーデにも合い、大人っぽい印象を演出できます。秋冬はチョコレートブラウン、春夏はモーヴピンクがおすすめ。OPI「Barefoot in Barcelona」やessieの「Merino Cool」などが人気。デパコスでもプチプラでも、くすみカラーは充実しています。' },
+      { title:'✨ 個性派アートネイル — 指先を自分らしくデコレーション', colors:['#9B59B6','#F1C40F','#1ABC9C','#E74C3C'], desc:'ホログラム・スタッズ・押し花・マーブルなど、アートネイルで個性を表現しましょう。セルフでもYouTubeにチュートリアルが豊富にあります。ジェルネイルをやるなら、ネイリスタ・ネイルアンドケアのLEDジェルキットが初心者向け。マーブルネイルはビニール袋を使う方法が簡単でバズっています。爪の長さは中〜長めがアートの見栄えが良いです。' },
+      { title:'🤍 ホワイト・シアーネイル — 万能・清潔感の定番', colors:['#FFFFFF','#FFF0F5','#F0F8FF','#FFE4E1'], desc:'半透明のシアーピンク・シアーホワイト・ミルクカラーはどんな肌色にも合う最強の万能ネイルです。爪が透けて見えるくらいの薄づきが今季のトレンド「オーロラネイル」「ガラスネイル」にも繋がります。ベースコート代わりにシアーカラーを重ね塗りするだけでも可愛い。BTSのJ-HOPEも愛用するとして話題になったJILBY&CO.の「Glassnails」もおすすめです。' }
+    ];
+    const SKIN_COMMENTS = [
+      '✨ イエローベースの明るい肌に映えるカラーをセレクト',
+      '✨ ブルーベースの明るい肌に映えるカラーをセレクト',
+      '✨ 標準的な肌色に馴染む万能カラー提案',
+      '✨ オークル系肌色に馴染みやすいカラーをセレクト'
     ];
     function getResult(answers) {
       const scores = [0,0,0,0,0];
@@ -233,16 +253,21 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
       const best = scores.indexOf(Math.max(...scores));
       return RESULTS[best];
     }
-    // ★以下変更不要★
-    const BTN='#7c3aed'; let cur=0; const ans=[];
+    let cur=0; const ans=[];
     document.addEventListener('DOMContentLoaded',()=>{ document.getElementById('q-total').textContent=QUESTIONS.length; });
-    function startQuiz(){ cur=0;ans.length=0; document.getElementById('quiz-start').style.display='none'; document.getElementById('quiz-area').style.display='block'; document.getElementById('result').classList.remove('show'); renderQ(); }
+    function startQuiz(){
+      cur=0; ans.length=0;
+      document.getElementById('quiz-start').style.display='none';
+      document.getElementById('quiz-area').style.display='block';
+      document.getElementById('result').classList.remove('show');
+      renderQ();
+    }
     function renderQ(){
       const q=QUESTIONS[cur];
       document.getElementById('q-num').textContent=cur+1;
       document.getElementById('q-bar').style.width=((cur+1)/QUESTIONS.length*100)+'%';
       document.getElementById('q-text').textContent=q.text;
-      document.getElementById('q-options').innerHTML=q.opts.map((o,i)=>`<button onclick="answer(${i}" style="width:100%;padding:12px;margin-bottom:8px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;cursor:pointer;background:#fff;text-align:left;">${o}</button>`).join('');
+      document.getElementById('q-options').innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answer(${i})">${o}</button>`).join('');
     }
     function answer(idx){ ans.push({idx}); cur++; if(cur>=QUESTIONS.length) showResult(); else renderQ(); }
     function showResult(){
@@ -250,26 +275,22 @@ j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
       const r=getResult(ans);
       document.getElementById('r-title').textContent=r.title;
       document.getElementById('r-desc').textContent=r.desc;
+      // カラースウォッチ表示
+      document.getElementById('r-colors').innerHTML=r.colors.map(c=>`<span title="${c}" style="width:40px;height:40px;border-radius:50%;background:${c};border:2px solid #e5e7eb;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);"></span>`).join('');
+      // 肌色別パーソナライズコメント
+      const skinIdx=ans[0]?.idx ?? 0;
+      const skinEl=document.getElementById('r-skin');
+      skinEl.textContent=SKIN_COMMENTS[skinIdx]||'';
+      skinEl.style.display='block';
+      // SNSシェアボタン
+      const shareText=encodeURIComponent('ネイルデザイン診断結果：'+r.title+'\n');
+      const shareUrl=encodeURIComponent('https://appadaycreator.com/nail-design-advisor/');
+      document.getElementById('r-share').innerHTML=
+        `<a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" rel="noopener" aria-label="診断結果をXでシェア" style="background:#1DA1F2;color:white;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:44px;">𝕏 結果をシェア</a>`+
+        `<a href="https://line.me/R/msg/text/?${shareText}${shareUrl}" target="_blank" rel="noopener" aria-label="診断結果をLINEでシェア" style="background:#00B900;color:white;padding:8px 16px;border-radius:8px;font-size:13px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;min-height:44px;">LINE</a>`;
       document.getElementById('result').classList.add('show');
-    }
-    // ★以下変更不要★
-    const BTN='#7c3aed'; let cur=0; const ans=[];
-    document.addEventListener('DOMContentLoaded',()=>{ document.getElementById('q-total').textContent=QUESTIONS.length; });
-    function startQuiz(){ cur=0;ans.length=0; document.getElementById('quiz-start').style.display='none'; document.getElementById('quiz-area').style.display='block'; document.getElementById('result').classList.remove('show'); renderQ(); }
-    function renderQ(){
-      const q=QUESTIONS[cur];
-      document.getElementById('q-num').textContent=cur+1;
-      document.getElementById('q-bar').style.width=((cur+1)/QUESTIONS.length*100)+'%';
-      document.getElementById('q-text').textContent=q.text;
-      document.getElementById('q-options').innerHTML=q.opts.map((o,i)=>`<button onclick="answer(${i})" style="width:100%;padding:12px;margin-bottom:8px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;cursor:pointer;background:#fff;text-align:left;">${o}</button>`).join('');
-    }
-    function answer(idx){ ans.push({idx}); cur++; if(cur>=QUESTIONS.length) showResult(); else renderQ(); }
-    function showResult(){
-      document.getElementById('quiz-area').style.display='none';
-      const r=getResult(ans);
-      document.getElementById('r-title').textContent=r.title;
-      document.getElementById('r-desc').textContent=r.desc;
-      document.getElementById('result').classList.add('show');
+      // 結果へスクロール
+      document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
     }
     </script>
 </body>
